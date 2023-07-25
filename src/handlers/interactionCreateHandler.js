@@ -12,9 +12,10 @@ module.exports = (client) => {
       const num1 = interaction.options.get("first-number").value;
       const num2 = interaction.options.get("second-number").value;
       console.log(interaction.user.id);
+      console.log(interaction);
       const query = {
         userId: interaction.user.id,
-        guildId: 1133227277363191880,
+        guildId: interaction.guildId,
         value1: num1,
         value2: num2,
       };
@@ -33,7 +34,7 @@ module.exports = (client) => {
       else {
         const newEntry = new Test({
           userId: interaction.user.id,
-          guildId: 1133227277363191880,
+          guildId: interaction.guildId,
           value1: 5,
           value2: 12,
         });
