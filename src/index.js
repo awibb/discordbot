@@ -1,5 +1,8 @@
+// index.js
 require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
+const mongoose = require("mongoose");
+const eventHandler = require("./handlers/eventHandler");
 
 const client = new Client({
   intents: [
@@ -10,18 +13,17 @@ const client = new Client({
   ],
 });
 
-client.on("ready", (c) => {
-  console.log(`${c.user.tag} is online`);
-});
-
-client.on("messageCreate", (message) => {
-  // console.log(message.content);
-
-  if (message.author.bot) return;
-
-  if (message.content == "hello") {
-    message.reply("Howdy Partner!");
+(async () => {
+  try {
+    //connect to database
+    await mongoose.connect(process.env.DB_CONNECTION_STRING);
+    console.log("connected to DB");
+    eventHandler(client);
+    client.login(process.env.TOKEN);
+  } catch (e) {
+    console.log(`error on bot startup up ${e}`);
   }
-});
+  // Use the eventHandler to handle all the events
+})();
 
-client.login(process.env.TOKEN);
+// Use the eventHandler to handle all the events
