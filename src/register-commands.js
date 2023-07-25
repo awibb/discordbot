@@ -21,8 +21,8 @@ const commands = [
     ],
   },
   {
-    name: "embed",
-    description: "send an embed",
+    name: "addresult",
+    description: "fetch db results for /add operation",
   },
 ];
 
