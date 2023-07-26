@@ -24,10 +24,6 @@ const commands = [
     name: "addresult",
     description: "fetch db results for /add operation",
   },
-  {
-    name: "fetchodds",
-    description: "fetch data from gmailApi",
-  },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);

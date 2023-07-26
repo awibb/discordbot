@@ -22,15 +22,5 @@ module.exports = (client) => {
     if (interaction.commandName === "addresult") {
       await addResultCommand(interaction);
     }
-    if (interaction.commandName === "fetchodds") {
-      console.log("fetch email data from gmail!");
-      interaction.reply("fetch email data from gmail!");
-      try {
-        const auth = await authorize();
-        await listAndMarkUnreadEmails(auth);
-      } catch (error) {
-        console.error(error);
-      }
-    }
   });
 };

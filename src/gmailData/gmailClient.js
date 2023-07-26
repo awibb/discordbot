@@ -121,6 +121,7 @@ function getBetOnText(body) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 async function listAndMarkUnreadEmails(auth) {
+  const results = [];
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.messages.list({
     userId: "me",
@@ -131,10 +132,10 @@ async function listAndMarkUnreadEmails(auth) {
     console.log(
       "No unread emails from notifications@oddsjam.com found in the inbox."
     );
-    return;
+    return [];
   }
 
-  console.log("Unread emails from notifications@oddsjam.com in the inbox:");
+  // console.log("Unread emails from notifications@oddsjam.com in the inbox:");
   for (const email of emails) {
     try {
       const message = await gmail.users.messages.get({
@@ -155,20 +156,25 @@ async function listAndMarkUnreadEmails(auth) {
 
       // Display "Fliff" if present in the email body
       if (containsFliff) {
-        console.log("Fliff");
+        //console.log("Fliff");
       }
 
       // Check if the email body contains a percentage
       const percentageRegex = /(\d+(\.\d+)?)%/;
       const percentageMatches = body.match(percentageRegex);
       if (percentageMatches && percentageMatches.length >= 1) {
-        console.log("Edge: +", percentageMatches[0]);
+        //console.log("Edge: +", percentageMatches[0]);
       }
 
       // Display the text after "Bet on" in the email body until "odds on" is seen
       const betOnText = getBetOnText(body);
       if (betOnText) {
-        console.log(betOnText);
+        //console.log(betOnText);
+        results.push({
+          book: "Fliff",
+          edge: percentageMatches[0],
+          bet: betOnText,
+        });
       } else {
         console.log(
           'Text after "Bet on" until "odds on" not found in the email body.'
@@ -187,6 +193,8 @@ async function listAndMarkUnreadEmails(auth) {
       console.error("Error fetching or marking email as read:", error);
     }
   }
+  console.log(results.length);
+  return results;
 }
 
 module.exports = {
