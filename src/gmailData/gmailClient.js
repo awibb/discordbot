@@ -148,6 +148,8 @@ async function listAndMarkUnreadEmails(auth) {
       const from = headers.find((header) => header.name === "From");
       const body = getBody(message.data.payload);
 
+      // console.log(body);
+
       // console.log("Subject:", subject.value);
       // console.log("From:", from.value);
 
@@ -162,9 +164,17 @@ async function listAndMarkUnreadEmails(auth) {
       // Check if the email body contains a percentage
       const percentageRegex = /(\d+(\.\d+)?)%/;
       const percentageMatches = body.match(percentageRegex);
-      if (percentageMatches && percentageMatches.length >= 1) {
-        //console.log("Edge: +", percentageMatches[0]);
-      }
+      const eventName = body.substring(0, percentageMatches.index).trim();
+      //console.log(eventName);
+
+      // Extract the event date from the email body
+      const eventDateRegex = /Date of Event:\s*(.*?),/;
+      const eventDateMatches = body.match(eventDateRegex);
+      const eventDate =
+        eventDateMatches && eventDateMatches[1]
+          ? eventDateMatches[1].trim()
+          : null;
+      //console.log(eventDate);
 
       // Display the text after "Bet on" in the email body until "odds on" is seen
       const betOnText = getBetOnText(body);
@@ -172,6 +182,8 @@ async function listAndMarkUnreadEmails(auth) {
         //console.log(betOnText);
         results.push({
           book: "Fliff",
+          event: eventName,
+          date: eventDate,
           edge: percentageMatches[0],
           bet: betOnText,
         });
