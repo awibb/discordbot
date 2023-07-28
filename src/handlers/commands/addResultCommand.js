@@ -6,12 +6,12 @@ module.exports = async (interaction) => {
   const embedsTest = [];
   await Test.find()
     .then((documents) => {
-      console.log("All entries:", documents);
+      // console.log("All entries:", documents);
 
       // Iterate through each entry
       documents.forEach((entry) => {
-        console.log("val1", entry.value1);
-        console.log("val2", entry.value2);
+        // console.log("val1", entry.value1);
+        // console.log("val2", entry.value2);
 
         // Do whatever you want to do with each entry here
         const embed = new EmbedBuilder()
@@ -41,7 +41,7 @@ module.exports = async (interaction) => {
     .catch((err) => {
       console.error("Error finding documents:", err);
     });
-  console.log(embedsTest.length);
+  // console.log(embedsTest.length);
   if (embedsTest.length > 0) {
     interaction.reply({ embeds: embedsTest });
   } else {
