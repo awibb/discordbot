@@ -16,8 +16,9 @@ const client = new Client({
 (async () => {
   try {
     //connect to database
-    await mongoose.connect(process.env.DB_CONNECTION_STRING);
-    console.log("connected to DB");
+    //commenting out for now as im not sure if this bot will end up needing the db anymore
+    //await mongoose.connect(process.env.DB_CONNECTION_STRING);
+    //console.log("connected to DB");
     eventHandler(client);
     client.login(process.env.TOKEN);
   } catch (e) {
