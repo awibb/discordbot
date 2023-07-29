@@ -2,28 +2,28 @@ require("dotenv").config();
 const { REST, Routes, ApplicationCommandOptionType } = require("discord.js");
 
 const commands = [
-  {
-    name: "add",
-    description: "adds two numbers",
-    options: [
-      {
-        name: "first-number",
-        description: "the first number",
-        type: ApplicationCommandOptionType.Number,
-        required: true,
-      },
-      {
-        name: "second-number",
-        description: "the second number",
-        type: ApplicationCommandOptionType.Number,
-        required: true,
-      },
-    ],
-  },
-  {
-    name: "addresult",
-    description: "fetch db results for /add operation",
-  },
+  // {
+  //   name: "add",
+  //   description: "adds two numbers",
+  //   options: [
+  //     {
+  //       name: "first-number",
+  //       description: "the first number",
+  //       type: ApplicationCommandOptionType.Number,
+  //       required: true,
+  //     },
+  //     {
+  //       name: "second-number",
+  //       description: "the second number",
+  //       type: ApplicationCommandOptionType.Number,
+  //       required: true,
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: "addresult",
+  //   description: "fetch db results for /add operation",
+  // },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
