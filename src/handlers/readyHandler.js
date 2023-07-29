@@ -31,8 +31,7 @@ module.exports = (client) => {
 
 // Function to send a message to the specified channel
 function sendMessageToChannel(message, client) {
-  const CHANNEL_ID = "1133507028770365472";
-  const channel = client.channels.cache.get(CHANNEL_ID);
+  const channel = client.channels.cache.get(process.env.CHANNEL_ID);
   if (!channel) {
     console.error("Channel not found. Check if the channel ID is correct.");
     return;
@@ -85,7 +84,7 @@ function sendMessageToChannel(message, client) {
   }
 
   // Send the message
-  console.log("EMBED LENGTH    : " + embedList.length);
+  //console.log("EMBED LENGTH    : " + embedList.length);
   if (embedList.length > 0) {
     channel
       .send({ embeds: embedList })
