@@ -49,7 +49,7 @@ function sendMessageToChannel(message, client) {
   // console.log("message: " + typeof message);
   if (message) {
     message.forEach((element) => {
-      // console.log("ELEMENT");
+      //console.log("ELEMENT");
       // console.log(element);
 
       const embed = new EmbedBuilder()
@@ -73,6 +73,10 @@ function sendMessageToChannel(message, client) {
           {
             name: "Bet",
             value: String(element.bet),
+          },
+          {
+            name: "Recommended Bet Size",
+            value: "$" + String(element.betSize),
           },
           {
             name: "Edge",

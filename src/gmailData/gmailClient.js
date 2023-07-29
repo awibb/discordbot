@@ -116,7 +116,7 @@ function getBetOnText(body) {
 }
 
 /**
- * Lists the subjects, senders, and bodies of all the unread emails from the specified sender in the user's inbox, and marks them as read.
+ * Lists the subjects, senders, bodies, and recommended bet amount of all the unread emails from the specified sender in the user's inbox, and marks them as read.
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
@@ -180,12 +180,27 @@ async function listAndMarkUnreadEmails(auth) {
       const betOnText = getBetOnText(body);
       if (betOnText) {
         //console.log(betOnText);
+
+        // Look for all recommended bet amounts with a $ sign followed by a number
+        const betAmountRegex = /\$(\d+(\.\d+)?)/g;
+        let betAmountMatches;
+        const recommendedBetAmounts = [];
+        while ((betAmountMatches = betAmountRegex.exec(body))) {
+          const recommendedBetAmount = betAmountMatches[1];
+          if (recommendedBetAmount) {
+            recommendedBetAmounts.push(parseFloat(recommendedBetAmount));
+          }
+        }
+        //console.log(recommendedBetAmounts);
+
+        const betAmt = String(recommendedBetAmounts[0]);
         results.push({
           book: "Fliff",
           event: eventName,
           date: eventDate,
           edge: percentageMatches[0],
           bet: betOnText,
+          betSize: betAmt,
         });
       } else {
         console.log(
